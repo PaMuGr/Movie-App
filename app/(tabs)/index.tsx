@@ -1,11 +1,12 @@
-import {ActivityIndicator, Animated, FlatList, Image, Text, View} from "react-native";
-import {images} from "@/constants/images";
-import ScrollView = Animated.ScrollView;
-import {icons} from "@/constants/icons";
+import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
-import {useRouter} from "expo-router";
+import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
+import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
-import {fetchMovies} from "@/services/api";
+import { useRouter } from "expo-router";
+import { ActivityIndicator, Animated, FlatList, Image, Text, View } from "react-native";
+import ScrollView = Animated.ScrollView;
 
 export default function Index() {
     const router = useRouter();
@@ -43,20 +44,15 @@ export default function Index() {
 
                         <FlatList
                             data={movies}
-                            renderItem={({ item }) => (
-                                <Text className="text-white text-sm">{item.title}</Text>
-                            )}
+                            renderItem={({ item }) => <MovieCard {...item} />}
                             keyExtractor={(item) => item.id.toString()}
-
                             numColumns={3}
                             columnWrapperStyle={{
-                                justifyContent: 'flex-start',
-                                gap: 20,
-                                paddingRight: 5,
+                                justifyContent: 'space-between', 
                                 marginBottom: 10
                             }}
                             className="mt-2 pb-32"
-                            scrollEnabled = {false}
+                            scrollEnabled={false}
                         />
                     </>
                 </View>
